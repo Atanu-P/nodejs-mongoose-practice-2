@@ -19,7 +19,7 @@ async function main() {
     await findListingByCity("California");
 
     // Find all the listings in between range of age
-    await findListingByAge(10, 20);
+    await findListingByAge(20, 30);
   } catch (error) {
     console.log(error);
   }
@@ -37,20 +37,28 @@ async function findOneListingByName(nameOfListing) {
 }
 
 async function findListingByCity(nameOfListing) {
-  const result = await User.find({ city: nameOfListing });
-  if (result) {
-    console.log(result);
+  const results = await User.find({ city: nameOfListing });
+  if (results) {
+    console.log(results);
   } else {
     console.log(`No listings found with the city '${nameOfListing}'`);
   }
 }
 
 async function findListingByAge(lowerlimit, upperLimit) {
-  const result = await User.find({
+  const results = await User.find({
     age: { $gte: lowerlimit, $lte: upperLimit },
   });
-  if (result.length > 0) {
-    console.log(result);
+  if (results.length > 0) {
+    console.log(results);
+    results.forEach((result, i) => {
+      console.log(`
+        ${i + 1}.  _id: ${result._id}
+           Name: ${result.name}
+           City: ${result.city}
+            Age: ${result.age}
+      `);
+    });
   } else {
     console.log(
       `No listings found within age ${lowerlimit} and age ${upperLimit}.`
