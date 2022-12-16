@@ -13,13 +13,16 @@ async function main() {
     await mongoose.connect(db_url);
 
     // UPDATE
-    await updateListingByName("Jenny", { name: "Jen" });
+    await updateListingByName("Jennny", { name: "Jen" });
+    await findOneListingByName("Jen");
 
     // UPSERT
     await upsertListingByName("Jenny", { name: "Jen" });
+    await findOneListingByName("Jenny");
 
     // UPDATE MANY
     await updateAllListingsToHavePropertyType();
+    await findAllListing();
   } catch (error) {
     console.log(error);
   }
@@ -64,4 +67,18 @@ async function updateAllListingsToHavePropertyType() {
   );
   console.log(`${result.matchedCount} document(s) matched the query criteria.`);
   console.log(`${result.modifiedCount} document(s) was/were updated.`);
+}
+
+async function findAllListing() {
+  const results = await User.find();
+  console.log(results);
+}
+
+async function findOneListingByName(nameOfListing) {
+  const result = await User.findOne({ name: nameOfListing });
+  if (result) {
+    console.log(result);
+  } else {
+    console.log(`No listings found with the name '${nameOfListing}'`);
+  }
 }
