@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-const User = require("./model/User");
+const Dummy = require("./model/Staff");
 
-console.log(User);
+console.log(Dummy);
 
 async function main() {
   const db_url = "mongodb://localhost:27017/mongoose_test";
